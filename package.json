@@ -1,19 +1,19 @@
 {
-  "name": "@gitbook/slate-edit-table",
+  "name": "@joefitter/slate-edit-table",
   "description": "A Slate plugin to handle keyboard events in tables.",
   "version": "0.18.1",
-  "license": "Apache-2.0",
-  "repository": "git://github.com/GitbookIO/slate-edit-table.git",
+  "license": "MIT",
+  "repository": "git://github.com/joefitter/slate-edit-table.git",
   "main": "./dist/index.js",
   "files": [
     "dist",
     "*.md"
   ],
   "peerDependencies": {
-    "immutable": "^3.8.1",
-    "@gitbook/slate": "^0.34.7",
-    "@gitbook/slate-react": "^0.13.4",
-    "@gitbook/slate-schema-violations": "^0.1.20"
+    "immutable": "^3.8.2",
+    "slate": "^0.47.4",
+    "slate-react": "^0.22.4",
+    "slate-schema-violations": "^0.1.39"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -44,12 +44,11 @@
     "prettier": "^1.9.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "@gitbook/slate": "^0.34.7",
-    "slate-hyperprint": "^2.2.4",
-    "@gitbook/slate-hyperscript": "^0.5.22",
-    "@gitbook/slate-react": "^0.13.4",
-    "@gitbook/slate-schema-violations": "^0.1.20",
-    "@gitbook/slate-simulator": "^0.4.39",
+    "slate": "^0.47.4",
+    "slate-hyperprint": "^2.3.0",
+    "slate-hyperscript": "^0.13.4",
+    "slate-react": "^0.22.4",
+    "slate-schema-violations": "^0.1.39",
     "watchify": "^3.7.0"
   },
   "scripts": {
@@ -67,5 +66,6 @@
   },
   "keywords": [
     "slate"
-  ]
+  ],
+  "dependencies": {}
 }

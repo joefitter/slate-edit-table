@@ -5,12 +5,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { type Block } from '@gitbook/slate';
-import { Editor } from '@gitbook/slate-react';
+import { type Block } from 'slate';
+import { Editor } from 'slate-react';
 
 import PluginEditTable from '../lib/';
-import alignPlugin from './aligns';
+// import alignPlugin from './aligns';
 import INITIAL_VALUE from './value';
+
+INITIAL_VALUE.selection.focus.path.map((a, b) => console.log(a, b))
+console.log(INITIAL_VALUE.selection.toJSON())
+console.log(INITIAL_VALUE.selection.isSet)
 
 const tablePlugin = PluginEditTable({
     typeTable: 'table',
@@ -19,7 +23,7 @@ const tablePlugin = PluginEditTable({
     typeContent: 'paragraph'
 });
 
-function renderNode(props) {
+function renderBlock(props, editor, next) {
     switch (props.node.type) {
         case 'table':
             return <Table {...props} />;
@@ -32,11 +36,11 @@ function renderNode(props) {
         case 'heading':
             return <h1 {...props.attributes}>{props.children}</h1>;
         default:
-            return null;
+            return next();
     }
 }
 
-const plugins = [tablePlugin, alignPlugin, { renderNode }];
+const plugins = [tablePlugin];
 
 type NodeProps = {
     attributes: Object,
@@ -104,8 +108,7 @@ class Paragraph extends React.Component<NodeProps> {
 }
 
 class Example extends React.Component<*, *> {
-    submitChange: Function;
-    editorREF: Editor;
+    editor: Editor;
     state = {
         value: INITIAL_VALUE
     };
@@ -141,8 +144,15 @@ class Example extends React.Component<*, *> {
     }
 
     setEditorComponent = (ref: Editor) => {
-        this.editorREF = ref;
-        this.submitChange = ref.change;
+        this.editor = ref;
+        console.log(this.editor.value.selection.anchor.key)
+        console.log(this.editor.value.selection.focus.key)
+
+        // console.log('RANGE', this.editor.findDOMRange(this.editor.value.selection))
+        // this.editor.updateSelection(this.editor.value.selection)
+        setTimeout(() => {
+          this.editor.select(INITIAL_VALUE.selection)
+        })
     };
 
     onChange = ({ value }) => {
@@ -153,45 +163,47 @@ class Example extends React.Component<*, *> {
 
     onInsertTable = event => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.insertTable);
+        this.editor.insertTable();
     };
 
     onInsertColumn = event => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.insertColumn);
+        this.editor.insertColumn();
     };
 
     onInsertRow = event => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.insertRow);
+        this.editor.insertRow();
     };
 
     onRemoveColumn = event => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.removeColumn);
+        this.editor.removeColumn();
     };
 
     onRemoveRow = event => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.removeRow);
+        this.editor.removeRow();
     };
 
     onRemoveTable = event => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.removeTable);
+        this.editor.removeTable();
     };
 
     onSetAlign = (event, align) => {
-        event.preventDefault();
-        this.submitChange(change =>
-            alignPlugin.changes.setColumnAlign(change, align)
-        );
+      event.preventDefault();
+      this.editor.setColumnAlign(event, align)
     };
 
     render() {
         const { value } = this.state;
-        const isInTable = tablePlugin.utils.isSelectionInTable(value);
-        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(value);
+        const isInTable = tablePlugin.queries.isSelectionInTable(value);
+        const isOutTable = tablePlugin.queries.isSelectionOutOfTable(value);
+
+        setTimeout(() => {
+          // this.editor.focus()
+        }, 1)
 
         return (
             <React.Fragment>
@@ -202,6 +214,7 @@ class Example extends React.Component<*, *> {
                     placeholder={'Enter some text...'}
                     plugins={plugins}
                     value={value}
+                    renderBlock={renderBlock}
                     onChange={this.onChange}
                 />
             </React.Fragment>
