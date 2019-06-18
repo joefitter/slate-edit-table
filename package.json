@@ -67,5 +67,8 @@
   "keywords": [
     "slate"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
