@@ -1,6 +1,6 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
+export default function(plugin, editor) {
     let isDefaultPrevented = false;
     const result = plugin.onKeyDown(
         {
@@ -10,7 +10,8 @@ export default function(plugin, change) {
             },
             stopPropagation() {}
         },
-        change
+        editor,
+        () => {}
     );
 
     // It shouldn't alter the default behavior...
@@ -19,5 +20,5 @@ export default function(plugin, change) {
     // ...and let Slate do the work
     expect(result).toBe(undefined);
 
-    return change;
+    return editor;
 }

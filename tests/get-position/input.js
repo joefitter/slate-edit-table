@@ -22,7 +22,8 @@ export default (
                     </table_cell>
                     <table_cell>
                         <paragraph>
-                            Col <cursor />1, Row 1
+                            Col <cursor />
+                            1, Row 1
                         </paragraph>
                     </table_cell>
                     <table_cell>

@@ -11,7 +11,8 @@ export default (
                     </table_cell>
                     <table_cell>
                         <paragraph>
-                            <anchor />Col 1, Row 0
+                            <anchor />
+                            Col 1, Row 0
                         </paragraph>
                     </table_cell>
                 </table_row>

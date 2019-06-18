@@ -26,7 +26,9 @@ export default (
             </table>
             <paragraph>
                 <text key="outside">
-                    <anchor />Elsewhere<focus />
+                    <anchor />
+                    Elsewhere
+                    <focus />
                 </text>
             </paragraph>
         </document>

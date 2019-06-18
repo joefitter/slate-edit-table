@@ -1,8 +1,8 @@
-export default function(plugin, change) {
-    const { value } = change;
+export default function(plugin, editor) {
+    const { value } = editor;
     const blockStart = value.document.getDescendant('anchor');
 
-    const withCursor = change.collapseToStartOf(blockStart);
+    const withCursor = editor.moveToStartOfNode(blockStart);
 
     plugin.onKeyDown(
         {
@@ -13,5 +13,5 @@ export default function(plugin, change) {
         withCursor
     );
 
-    return change;
+    return editor;
 }

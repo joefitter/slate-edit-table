@@ -8,7 +8,9 @@ export default (
                 <table_row>
                     <table_cell>
                         <paragraph>
-                            <anchor />Col 0, <focus />Row 0
+                            <anchor />
+                            Col 0, <focus />
+                            Row 0
                         </paragraph>
                     </table_cell>
                     <table_cell>
