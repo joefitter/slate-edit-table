@@ -1,5 +1,5 @@
 // @flow
-import { type Change } from 'slate';
+import { type Editor, type SlateError } from 'slate';
 import { NODE_DATA_INVALID } from 'slate-schema-violations';
 import PluginEditTable from '../lib/';
 
@@ -17,16 +17,16 @@ const tablePlugin = PluginEditTable({
 /*
  * Set align data for the current column
  */
-function setColumnAlign(change: Change, align: string): Change {
-    const pos = tablePlugin.utils.getPosition(change.value);
-    const columnCells = tablePlugin.utils.getCellsAtColumn(
+function setColumnAlign(editor: Editor, align: string): Editor {
+    const pos = tablePlugin.queries.getPosition(editor.value);
+    const columnCells = tablePlugin.queries.getCellsAtColumn(
         pos.table,
         pos.getColumnIndex()
     );
     columnCells.forEach(cell => {
-        change.setNodeByKey(cell.key, { data: { align } });
+        editor.setNodeByKey(cell.key, { data: { align } });
     });
-    return change;
+    return editor;
 }
 
 const alignPlugin = {
@@ -37,10 +37,10 @@ const alignPlugin = {
                     // Make sure cells have an alignment
                     align: align => ['left', 'center', 'right'].includes(align)
                 },
-                normalize(change: Change, violation: string, context: Object) {
-                    if (violation === NODE_DATA_INVALID) {
-                        change.setNodeByKey(context.node.key, {
-                            data: context.node.data.set('align', 'left')
+                normalize(editor: Editor, error: SlateError) {
+                    if (error.code === NODE_DATA_INVALID) {
+                        editor.setNodeByKey(error.node.key, {
+                            data: error.node.data.set('align', 'left')
                         });
                     }
                 }
@@ -48,7 +48,7 @@ const alignPlugin = {
         }
     },
 
-    changes: {
+    commands: {
         setColumnAlign
     }
 };

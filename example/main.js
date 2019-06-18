@@ -9,12 +9,8 @@ import { type Block } from 'slate';
 import { Editor } from 'slate-react';
 
 import PluginEditTable from '../lib/';
-// import alignPlugin from './aligns';
+import alignPlugin from './aligns';
 import INITIAL_VALUE from './value';
-
-INITIAL_VALUE.selection.focus.path.map((a, b) => console.log(a, b))
-console.log(INITIAL_VALUE.selection.toJSON())
-console.log(INITIAL_VALUE.selection.isSet)
 
 const tablePlugin = PluginEditTable({
     typeTable: 'table',
@@ -40,7 +36,10 @@ function renderBlock(props, editor, next) {
     }
 }
 
-const plugins = [tablePlugin];
+const plugins = [
+  tablePlugin,
+  alignPlugin
+];
 
 type NodeProps = {
     attributes: Object,
@@ -145,14 +144,6 @@ class Example extends React.Component<*, *> {
 
     setEditorComponent = (ref: Editor) => {
         this.editor = ref;
-        console.log(this.editor.value.selection.anchor.key)
-        console.log(this.editor.value.selection.focus.key)
-
-        // console.log('RANGE', this.editor.findDOMRange(this.editor.value.selection))
-        // this.editor.updateSelection(this.editor.value.selection)
-        setTimeout(() => {
-          this.editor.select(INITIAL_VALUE.selection)
-        })
     };
 
     onChange = ({ value }) => {
@@ -192,18 +183,14 @@ class Example extends React.Component<*, *> {
     };
 
     onSetAlign = (event, align) => {
-      event.preventDefault();
-      this.editor.setColumnAlign(event, align)
+        event.preventDefault();
+        this.editor.setColumnAlign(align);
     };
 
     render() {
         const { value } = this.state;
         const isInTable = tablePlugin.queries.isSelectionInTable(value);
         const isOutTable = tablePlugin.queries.isSelectionOutOfTable(value);
-
-        setTimeout(() => {
-          // this.editor.focus()
-        }, 1)
 
         return (
             <React.Fragment>

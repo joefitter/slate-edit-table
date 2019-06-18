@@ -3,15 +3,15 @@ import expect from 'expect';
 export default function(plugin, editor) {
     let isDefaultPrevented = false;
     const result = plugin.onKeyDown(
-      {
-        key: 'Backspace',
-        preventDefault() {
-          isDefaultPrevented = true;
+        {
+            key: 'Backspace',
+            preventDefault() {
+                isDefaultPrevented = true;
+            },
+            stopPropagation() {}
         },
-        stopPropagation() {}
-      },
-      editor,
-      () => {}
+        editor,
+        () => {}
     );
 
     // It shouldn't alter the default behavior...

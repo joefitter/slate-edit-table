@@ -14,10 +14,12 @@ export default (
                     </table_cell>
                     <table_cell>
                         <paragraph>
-                            <anchor />Col 2, Row 0
+                            <anchor />
+                            Col 2, Row 0
                         </paragraph>
                         <paragraph>
-                            Col<focus /> 2, Row 0
+                            Col
+                            <focus /> 2, Row 0
                         </paragraph>
                     </table_cell>
                 </table_row>

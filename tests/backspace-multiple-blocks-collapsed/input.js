@@ -15,7 +15,8 @@ export default (
                     <table_cell>
                         <paragraph>Col 2, Row 0</paragraph>
                         <paragraph>
-                            <cursor />Col 2, Row 0
+                            <cursor />
+                            Col 2, Row 0
                         </paragraph>
                     </table_cell>
                 </table_row>
