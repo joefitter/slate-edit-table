@@ -12,6 +12,7 @@ steps:
         from_secret: npm_auth_token
     commands:
       - npm ci
+      - npm test
   - name: publish
     image: node:16
     environment:
