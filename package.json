@@ -1,9 +1,9 @@
 {
-  "name": "@joefitter/slate-edit-table",
+  "name": "@asl/slate-edit-table",
   "description": "A Slate plugin to handle keyboard events in tables.",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "license": "MIT",
-  "repository": "git://github.com/joefitter/slate-edit-table.git",
+  "repository": "git://github.com/ukhomeoffice/slate-edit-table.git",
   "main": "./dist/index.js",
   "files": [
     "dist",
@@ -69,6 +69,6 @@
     "slate-schema-violations": "^0.1.39"
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://artifactory.digital.homeoffice.gov.uk/artifactory/api/npm/npm-virtual/"
   }
 }
